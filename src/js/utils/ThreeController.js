@@ -39,7 +39,7 @@ export default class ThreeGraphic{
     
     animate(){
         if(this.currentScene){
-            this.currentScene.animate();
+            this.currentScene.tick();
         }
         requestAnimationFrame(this.animate.bind(this));
     }
