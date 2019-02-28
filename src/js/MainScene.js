@@ -21,7 +21,6 @@ export default class MainScene extends BaseScene {
     animate() {
         this.box.rotateY(0.02);
         this.renderer.render(this.scene,this.camera);
-        requestAnimationFrame(this.animate.bind(this));
     }
 
     Resize(width,height){

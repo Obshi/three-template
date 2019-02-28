@@ -1,5 +1,6 @@
 import Cursor from './Cursor';
 import * as THREE from 'three';
+
 window.THREE = THREE;
 
 export default class ThreeGraphic{
@@ -19,6 +20,7 @@ export default class ThreeGraphic{
         this.isTouch = false;
     
         this.init();
+        this.animate();
     }
 
     init(){ 
@@ -39,6 +41,7 @@ export default class ThreeGraphic{
         if(this.currentScene){
             this.currentScene.animate();
         }
+        requestAnimationFrame(this.animate.bind(this));
     }
 
     setScene(scene){

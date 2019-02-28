@@ -1,3 +1,4 @@
+precision highp float;
 uniform vec3 start;
 uniform bool shot;
 
@@ -7,7 +8,7 @@ void main() {
     vec3 pos = texture2D( texturePosition, uv ).xyz;  
     vec3 vel = texture2D( textureVelocity, uv ).xyz;
 
-    pos += vel * 0.01;
+    pos += vel * 0.02;
 
     gl_FragColor = vec4(pos,1.0);
 }

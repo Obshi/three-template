@@ -1,4 +1,5 @@
-#include <common>
+precision highp float;
+
 uniform sampler2D texturePosition;
 uniform sampler2D textureVelocity;
 uniform sampler2D textureTime;
@@ -18,7 +19,9 @@ void main() {
     vColor = vec4(color,1.0);
 
     vec4 mvPosition = modelViewMatrix * vec4( pos + position, 1.0 );
-    gl_PointSize = 2.0;
+
+
+    gl_PointSize = 15.0 / -mvPosition.z ;
 
     gl_Position = projectionMatrix * mvPosition;
 }

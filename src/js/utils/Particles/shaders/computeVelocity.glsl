@@ -1,10 +1,5 @@
 #include <common>
 uniform vec2 mouse;
-uniform float time;
-uniform vec3 goal;
-uniform vec3 start;
-uniform bool shot;
-
 //
 // Description : Array and textureless GLSL 2D/3D/4D simplex 
 //               noise functions.
@@ -110,9 +105,9 @@ float snoise(vec3 v)
 
 vec3 snoise3D(vec3 pos){
     float weight = 0.5;
-    float x = snoise(pos * weight + 3.0) ;
+    float x = snoise(pos * weight + 61.0) ;
     float y = snoise(pos * weight + 236.0);
-    float z = snoise(pos * weight + time);
+    float z = snoise(pos * weight + 0.0);
 
     return vec3(x,y,z);
 }
@@ -129,34 +124,12 @@ vec3 snoiseDelta(vec3 pos){
 void main() {
     vec2 uv = gl_FragCoord.xy / resolution.xy;
 
-    vec4 tmpPos = texture2D( texturePosition, uv );
-    vec3 pos = tmpPos.xyz;
-
-    vec4 tmpVel = texture2D( textureVelocity, uv );
-    vec3 vel = tmpVel.xyz;
-
+    vec3 pos = texture2D( texturePosition, uv ).xyz;
+    vec3 vel = texture2D( textureVelocity, uv ).xyz;
     float idParticle = uv.y * resolution.x + uv.x;
 
-    vec4 tmpTime = texture2D( textureTime, uv );
-    float lifeTime = tmpTime.x;
-    float currentTime = tmpTime.y;
-    float emitReady = tmpTime.z;
-    
     vel = vel + snoiseDelta(pos * 3.0) * 0.1;
-
-    if(length(pos) <= 1000.0){
-        vel -= (pos - goal) * 0.3;
-    }else{
-        vel = vec3(0.0);
-    }
-
-    vel.zy *= 1.0 + max(0.0,1.0 - length(pos.zy)*0.3) * 0.3;
-
     vel *= 0.92;
-
-    if(emitReady > 0.5){
-       vel = vec3(0.0) + snoiseDelta(pos * 3.0) * 0.2;
-    }
 
     gl_FragColor = vec4( vel.xyz, 1.0 );
 }
