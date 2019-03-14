@@ -1,10 +1,10 @@
 {
-  "name": "glsl-school-work",
+  "name": "three-template",
   "version": "1.0.0",
   "description": "",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Obshi/glsl-school-work.git"
+    "url": "git@github.com:Obshi/three-template.git"
   },
   "main": "index.js",
   "scripts": {
