@@ -16,9 +16,15 @@ export default class MainScene extends BaseScene {
         var boXMat = new THREE.MeshNormalMaterial();
         this.box = new THREE.Mesh(boxGeo,boXMat);
         this.scene.add(this.box);
+
+        this.light = new THREE.DirectionalLight();
+        this.light.position.y = 10;
+        this.scene.add(this.light);
+        window.scene = this.scene;
     }
 
     animate() {
+        this.fish.update();
         this.box.rotateY(0.02);
         this.renderer.render(this.scene,this.camera);
     }
