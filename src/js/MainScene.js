@@ -24,7 +24,6 @@ export default class MainScene extends BaseScene {
     }
 
     animate() {
-        this.fish.update();
         this.box.rotateY(0.02);
         this.renderer.render(this.scene,this.camera);
     }
