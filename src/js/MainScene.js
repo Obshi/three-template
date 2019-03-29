@@ -1,11 +1,9 @@
-import BaseScene from './utils/BaseScene';
+import {BaseScene} from './utils/ore-three/';
 
 export default class MainScene extends BaseScene {
-
     constructor(renderer) {
         super(renderer);
         this.init();
-        this.animate();
     }
 
     init() {
