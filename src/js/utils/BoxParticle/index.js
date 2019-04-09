@@ -111,9 +111,9 @@ export default class BoxParticle {
         let uvs = new THREE.InstancedBufferAttribute(new Float32Array(objNum * 2),2,false,1);
 
         for(let i = 0; i < objNum; i++){
-            nums.setX(i,i);
-            uvs.setX(i,i / (this.res * this.res));
-            uvs.setY(i,(i % (this.res * this.res)) / this.res);
+            nums.setX(i, i);
+            uvs.setX(i, (i % (this.res * this.res)) / (this.res * this.res));
+            uvs.setY(i, (i / (this.res * this.res)) / this.res) 
         }
 
         geo.addAttribute('num',nums);
