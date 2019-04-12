@@ -1,5 +1,4 @@
 import {BaseScene} from './utils/ore-three/';
-import Fish from './utils/Fish';
 
 export default class MainScene extends BaseScene {
     constructor(renderer) {
@@ -33,13 +32,13 @@ export default class MainScene extends BaseScene {
         this.camera.updateProjectionMatrix();
     }
     
-    onTouchStart(){
+    onTouchStart(c){
     }
 
-    onTouchMove(){
+    onTouchMove(c){
     }
 
-    onTouchEnd(){
+    onTouchEnd(c){
 
     }
 
