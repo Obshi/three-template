@@ -10,7 +10,11 @@ import cssmin from 'gulp-cssmin';
 import del from 'del';
 
 gulp.task("webpack", () => {
-    return webpackStream(webpackConfig, webpack).on('error', function (e) {
+    let conf = webpackConfig;
+    conf.entry.main = './src/js/main.js';
+    conf.output.filename = 'script.js';
+
+    return webpackStream(conf, webpack).on('error', function (e) {
             this.emit('end');
         })
         .pipe(gulp.dest("./public/js/"))

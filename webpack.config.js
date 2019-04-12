@@ -2,10 +2,10 @@ import path from 'path';
 module.exports = {
     mode: "development",
     entry: {
-        main: './src/js/main.js'
+        main: ''
     },
     output: {
-        filename: 'script.js'
+        filename: ''
     },
     module: {
         rules: [{
