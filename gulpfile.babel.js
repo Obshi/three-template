@@ -11,44 +11,59 @@ import del from 'del';
 
 gulp.task("webpack", () => {
     return webpackStream(webpackConfig, webpack).on('error', function (e) {
-        this.emit('end');
-    })
-    .pipe(gulp.dest("./public/js/"));
+            this.emit('end');
+        })
+        .pipe(gulp.dest("./public/js/"));
 });
 
-gulp.task("sass", function() {
-    gulp.src("./src/scss/style.scss")
-      .pipe(plumber())
-      .pipe(autoprefixer())
-      .pipe(sass())
-      .pipe(cssmin())
-      .pipe(gulp.dest("./public/css/"));
+gulp.task("sass", () => {
+    return gulp.src("./src/scss/style.scss")
+        .pipe(plumber())
+        .pipe(autoprefixer())
+        .pipe(sass())
+        .pipe(cssmin())
+        .pipe(gulp.dest("./public/css/"))
+        .pipe(browserSync.stream());
 });
 
-gulp.task('copy', function() {
+gulp.task('copy', (c) => {
     gulp.src(['./src/html/**/*']).pipe(gulp.dest('./public/'));
     gulp.src(['./src/assets/**/*']).pipe(gulp.dest('./public/assets/'));
+    c();
 });
 
-gulp.task('browser-sync', () =>{
+gulp.task('browser-sync', () => {
     browserSync.init({
-        server:{
-            baseDir:"public",
+        server: {
+            baseDir: "public",
             index: "index.html"
         },
         open: false
     });
 });
 
-gulp.task('bs-reload', () =>{
+gulp.task('bs-reload', () => {
     browserSync.reload();
 })
 
-gulp.task('clean', del.bind(null, ['./public/']));
-
-gulp.task('default',['browser-sync','webpack','sass','copy'],() => {
-    gulp.watch(['./src/js/**/*  '],['webpack']);
-    gulp.watch('./src/scss/*.scss',['sass']);
-    gulp.watch('./src/**/*',['copy']);
-    gulp.watch('./src/**/*',['bs-reload']);
+gulp.task('clean', (c) => {
+    del([
+        './public/',
+    ]);
+    c();
 });
+
+gulp.task('watch', () => {
+    gulp.watch('./src/js/**/*', gulp.task('webpack'));
+    gulp.watch('./src/scss/*.scss', gulp.task('sass'));
+    gulp.watch('./src/**/*', gulp.task('copy'));
+});
+
+gulp.task('default', gulp.series(
+    'clean',
+    gulp.parallel(
+        'webpack', 'sass'
+    ),
+    'copy',
+    gulp.parallel('browser-sync', 'watch'),
+))
