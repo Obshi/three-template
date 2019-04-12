@@ -8,20 +8,17 @@ module.exports = {
         filename: 'script.js'
     },
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
             },
             {
-                test: /\.(glsl|vs|fs)$/,
-                loader: 'shader-loader',
-                options: {
-                    glsl: {
-                        chunkPath: path.resolve("/glsl/chunks")
-                    }
-                }
+                test: /\.(frag|vert|glsl|vs|fs)$/,
+                use: [{
+                    loader: 'glsl-shader-loader',
+                    options: {}
+                }]
             }
         ]
     }

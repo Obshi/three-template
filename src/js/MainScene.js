@@ -1,4 +1,5 @@
 import {BaseScene} from './utils/ore-three/';
+import Fish from './utils/Fish';
 
 export default class MainScene extends BaseScene {
     constructor(renderer) {
@@ -18,6 +19,7 @@ export default class MainScene extends BaseScene {
         this.light = new THREE.DirectionalLight();
         this.light.position.y = 10;
         this.scene.add(this.light);
+
         window.scene = this.scene;
     }
 

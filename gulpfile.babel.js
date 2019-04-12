@@ -13,7 +13,8 @@ gulp.task("webpack", () => {
     return webpackStream(webpackConfig, webpack).on('error', function (e) {
             this.emit('end');
         })
-        .pipe(gulp.dest("./public/js/"));
+        .pipe(gulp.dest("./public/js/"))
+        .unpipe(browserSync.reload());
 });
 
 gulp.task("sass", () => {
@@ -42,7 +43,7 @@ gulp.task('browser-sync', () => {
     });
 });
 
-gulp.task('bs-reload', () => {
+gulp.task('reload', () => {
     browserSync.reload();
 })
 
@@ -54,7 +55,7 @@ gulp.task('clean', (c) => {
 });
 
 gulp.task('watch', () => {
-    gulp.watch('./src/js/**/*', gulp.task('webpack'));
+    gulp.watch('./src/js/**/*', gulp.series('webpack'));
     gulp.watch('./src/scss/*.scss', gulp.task('sass'));
     gulp.watch('./src/**/*', gulp.task('copy'));
 });
