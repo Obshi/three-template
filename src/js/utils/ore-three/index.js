@@ -8,13 +8,15 @@ window.THREE = THREE;
 ------------------------------------------------------------------------------------*/
 
 export class Controller {
-    constructor(canvas) {
+    constructor(canvas, retina) {
         this.currentScene;
         this.canvas = canvas;
 
-        this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas});
+        this.renderer = new THREE.WebGLRenderer({
+            canvas: this.canvas
+        });
         this.renderer.setSize(window.innerWidth, window.innerHeight);
-        this.renderer.setPixelRatio(1);
+        this.renderer.setPixelRatio(retina ? window.devicePixelRatio : 1);
 
         this.pageScroll = false;
         this.cursor = new Cursor();
@@ -90,20 +92,16 @@ export class BaseScene {
         this.time = 0;
     }
 
-    tick(){
+    tick() {
         this.time += this.clock.getDelta();
         this.animate();
     }
 
-    animate(){
-    }
+    animate() {}
 
-    onTouchStart(){
-    }
+    onTouchStart() {}
 
-    onTouchMove(){
-    }
+    onTouchMove() {}
 
-    onTouchEnd(){
-    }
+    onTouchEnd() {}
 }
