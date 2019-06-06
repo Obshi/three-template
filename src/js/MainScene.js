@@ -1,12 +1,17 @@
-import {BaseScene} from './utils/ore-three/';
+import * as ORE from 'ore-three-ts';
+import * as THREE from 'three';
 
-export default class MainScene extends BaseScene {
+export default class MainScene extends ORE.BaseScene {
     constructor(renderer) {
+
         super(renderer);
+        
         this.init();
+        
     }
 
     init() {
+
         this.camera.position.set(0,1.5,3);
         this.camera.lookAt(0,0,0);
 
@@ -18,18 +23,20 @@ export default class MainScene extends BaseScene {
         this.light = new THREE.DirectionalLight();
         this.light.position.y = 10;
         this.scene.add(this.light);
-
-        window.scene = this.scene;
+        
     }
 
     animate() {
-        this.box.rotateY(0.02);
+        
+        this.box.rotateY(0.01);
         this.renderer.render(this.scene,this.camera);
+    
     }
 
-    Resize(width,height){
-        this.camera.aspect = width / height;
-        this.camera.updateProjectionMatrix();
+    onResize(width,height){
+    
+        super.onResize(width,height);
+    
     }
     
     onTouchStart(c){
@@ -39,7 +46,6 @@ export default class MainScene extends BaseScene {
     }
 
     onTouchEnd(c){
-
     }
 
 }
